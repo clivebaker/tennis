@@ -25,6 +25,8 @@ class TournamentsController < ApplicationController
   # GET /tournaments/new.json
   def new
     @tournament = Tournament.new
+    @players=Player.find_all_by_user_id(current_user.id)
+
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,16 +37,20 @@ class TournamentsController < ApplicationController
   # GET /tournaments/1/edit
   def edit
     @tournament = Tournament.find(params[:id])
+    @players=Player.find_all_by_user_id(current_user.id)
+    
   end
 
   # POST /tournaments
   # POST /tournaments.json
   def create
     @tournament = Tournament.new(params[:tournament])
+    @players=Player.find_all_by_user_id(current_user.id)
+    
 
     respond_to do |format|
       if @tournament.save
-        format.html { redirect_to @tournament, notice: 'Tournament was successfully created.' }
+        format.html { redirect_to tournaments_path, notice: 'Tournament was successfully created.' }
         format.json { render json: @tournament, status: :created, location: @tournament }
       else
         format.html { render action: "new" }
@@ -57,10 +63,12 @@ class TournamentsController < ApplicationController
   # PUT /tournaments/1.json
   def update
     @tournament = Tournament.find(params[:id])
+    @players=Player.find_all_by_user_id(current_user.id)
+    
 
     respond_to do |format|
       if @tournament.update_attributes(params[:tournament])
-        format.html { redirect_to @tournament, notice: 'Tournament was successfully updated.' }
+        format.html { redirect_to tournaments_path, notice: 'Tournament was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

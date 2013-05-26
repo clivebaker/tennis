@@ -18,8 +18,8 @@
     <% @tournaments.each do |tournament| %>
       <tr>
         <td><%= tournament.name %></td>
-        <td><%= tournament.player_id %></td>
-        <td><%= tournament.date %></td>
+        <td><%= tournament.player.first_name %> <%= tournament.player.last_name %></td>
+        <td><%= tournament.date.strftime("%d %b %Y - %H:%M") %></td>
         <td><%= tournament.result %></td>
         <td><%= tournament.notes %></td>
         <td>
