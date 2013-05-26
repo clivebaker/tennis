@@ -38,6 +38,8 @@
          <a class="brand" href="/"><%=image_tag "ball.png"%> Tennis Monitor</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav top20">
+
+			<%if current_user%>
 	              <li><%= link_to "Lessons", lessons_path  %></li>
 	              <li><%= link_to "Tournaments", tournaments_path  %></li>
               <li class="dropdown">
@@ -56,6 +58,8 @@
 			    </ul>
 			  </li>
               <li><%= link_to "Account", edit_user_registration_path  %></li>
+			  <li><%=link_to "Logout", destroy_user_session_path, :method=>:delete	%></li>
+			<%end%>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
