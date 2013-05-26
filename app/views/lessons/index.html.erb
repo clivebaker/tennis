@@ -6,11 +6,12 @@
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
+      <th><%= model_class.human_attribute_name(:player) %></th>
       <th><%= model_class.human_attribute_name(:day) %></th>
       <th><%= model_class.human_attribute_name(:time) %></th>
       <th><%= model_class.human_attribute_name(:coach_id) %></th>
       <th><%= model_class.human_attribute_name(:location_id) %></th>
-      <th class="hidden-phone hidden-tablet"><%= model_class.human_attribute_name(:diciplines) %></th>
+      <th class="hidden-phone hidden-tablet"><%= model_class.human_attribute_name(:performance) %></th>
       <th class="hidden-phone hidden-tablet"><%= model_class.human_attribute_name(:points) %></th>
       <th class="hidden-phone hidden-tablet"><%= model_class.human_attribute_name(:notes) %></th>
       <th class="hidden-phone hidden-tablet"><%= model_class.human_attribute_name(:type) %></th>
@@ -20,6 +21,7 @@
   <tbody>
     <% @lessons.each do |lesson| %>
       <tr>
+        <td><%= lesson.player.first_name %> <%= lesson.player.last_name %></td>
         <td><%= lesson.date.strftime("%d %b %Y ") %></td>
         <td><%= lesson.date.strftime("%H:%M") %></td>
         <td><%= lesson.coach.name %></td>
@@ -38,7 +40,7 @@
 			  </tbody>
 			</table>
 			<%end%>
-
+<%= link_to "Manage Performance", performance_lesson_path(lesson.id), :class=>"btn  btn-mini btn-success"%>
 		</td>
         <td class="hidden-phone hidden-tablet"><%= lesson.points==0 ? "None" : lesson.points %></td>
         <td class="hidden-phone hidden-tablet"><%= lesson.notes %></td>

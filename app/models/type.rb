@@ -3,4 +3,5 @@ class Type < ActiveRecord::Base
   
   has_many :lessons
   
-end
+  validates_presence_of :name
+  end

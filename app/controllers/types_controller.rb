@@ -2,8 +2,7 @@ class TypesController < ApplicationController
   # GET /types
   # GET /types.json
   def index
-    @types = Type.all
-
+    @types = Type.where("user_id=?",current_user)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @types }
@@ -41,10 +40,11 @@ class TypesController < ApplicationController
   # POST /types.json
   def create
     @type = Type.new(params[:type])
+    @type.user_id=current_user.id
 
     respond_to do |format|
       if @type.save
-        format.html { redirect_to @type, notice: 'Type was successfully created.' }
+        format.html { redirect_to types_path, notice: 'Type was successfully created.' }
         format.json { render json: @type, status: :created, location: @type }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class TypesController < ApplicationController
 
     respond_to do |format|
       if @type.update_attributes(params[:type])
-        format.html { redirect_to @type, notice: 'Type was successfully updated.' }
+        format.html { redirect_to types_path, notice: 'Type was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

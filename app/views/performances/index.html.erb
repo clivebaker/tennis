@@ -1,0 +1,40 @@
+<div class="row-fluid">
+  	<div class="span12 content">
+
+
+		<table class="table table-striped table-bordered discipline-table">
+		 <thead>
+		 	<tr>
+		 		<th>Name</th>
+		 		<th>Points</th>
+		 		<th>Notes</th>
+		 		<th>Actions</th>
+		 	</tr>
+		 </thead>
+		<tbody>
+		    <% @lesson.performances.each do |performance| %>
+		      <tr>
+		        <td><%= performance.discipline.name%></td>
+		        <td><%= performance.points%></td>
+		        <td><%= performance.notes%></td>
+		        <td>
+		          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+		                      edit_performance_path(performance), :class => 'btn btn-mini' %>
+		          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+		                      performance_path(performance),
+		                      :method => :delete,
+		                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+		                      :class => 'btn btn-mini btn-danger' %>
+		        </td>
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>
+
+		<%= link_to t('.new', :default => t("helpers.links.new")),
+		            new_performance_lesson_path,
+		            :class => 'btn btn-success' %>
+
+
+	</div>
+</div>

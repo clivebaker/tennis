@@ -5,5 +5,9 @@ class Performance < ActiveRecord::Base
   belongs_to :discipline
   belongs_to :lesson
   
+  validates_presence_of :discipline_id
+  validates_presence_of :points
+    
+  validates_uniqueness_of :discipline_id, :scope => [:lesson_id]
 
 end

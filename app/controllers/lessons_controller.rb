@@ -2,7 +2,7 @@ class LessonsController < ApplicationController
   # GET /lessons
   # GET /lessons.json
   def index
-    @lessons = Lesson.all
+    @lessons = Lesson.where("player_id IN (?)",Player.find_all_by_user_id(current_user).collect{|a|a.id})
     
     respond_to do |format|
       format.html # index.html.erb
@@ -26,10 +26,10 @@ class LessonsController < ApplicationController
   def new
     @lesson = Lesson.new
     
-    @coaches=Coach.all
+    @coaches=Coach.find_all_by_user_id(current_user.id)
     @players=Player.find_all_by_user_id(current_user.id)
-    @locations=Location.all
-    @types=Type.all
+    @locations=Location.find_all_by_user_id(current_user.id)
+    @types=Type.find_all_by_user_id(current_user.id)
     
     
 
@@ -42,10 +42,10 @@ class LessonsController < ApplicationController
   # GET /lessons/1/edit
   def edit
     @lesson = Lesson.find(params[:id])
-    @coaches=Coach.all
+    @coaches=Coach.find_all_by_user_id(current_user.id)
     @players=Player.find_all_by_user_id(current_user.id)
-    @locations=Location.all
-    @types=Type.all
+    @locations=Location.find_all_by_user_id(current_user.id)
+    @types=Type.find_all_by_user_id(current_user.id)
     
   end
 
@@ -53,10 +53,10 @@ class LessonsController < ApplicationController
   # POST /lessons.json
   def create
     @lesson = Lesson.new(params[:lesson])
-    @coaches=Coach.all
+    @coaches=Coach.find_all_by_user_id(current_user.id)
     @players=Player.find_all_by_user_id(current_user.id)
-    @locations=Location.all
-    @types=Type.all
+    @locations=Location.find_all_by_user_id(current_user.id)
+    @types=Type.find_all_by_user_id(current_user.id)
     
     respond_to do |format|
       if @lesson.save

@@ -2,7 +2,7 @@ class CoachesController < ApplicationController
   # GET /coaches
   # GET /coaches.json
   def index
-    @coaches = Coach.all
+    @coaches = Coach.where("user_id=?",current_user)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,7 +14,7 @@ class CoachesController < ApplicationController
   # GET /coaches/1.json
   def show
     @coach = Coach.find(params[:id])
-
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @coach }
@@ -41,10 +41,11 @@ class CoachesController < ApplicationController
   # POST /coaches.json
   def create
     @coach = Coach.new(params[:coach])
+    @coach.user_id=current_user.id
 
     respond_to do |format|
       if @coach.save
-        format.html { redirect_to @coach, notice: 'Coach was successfully created.' }
+        format.html { redirect_to coaches_path, notice: 'Coach was successfully created.' }
         format.json { render json: @coach, status: :created, location: @coach }
       else
         format.html { render action: "new" }
@@ -60,7 +61,7 @@ class CoachesController < ApplicationController
 
     respond_to do |format|
       if @coach.update_attributes(params[:coach])
-        format.html { redirect_to @coach, notice: 'Coach was successfully updated.' }
+        format.html { redirect_to coaches_path, notice: 'Coach was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

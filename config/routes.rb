@@ -1,6 +1,13 @@
 Tennis::Application.routes.draw do
 
+  resources :performances
 
+  match "performances/index/:id" => "performances#index", :as=>:performance_lesson, :via=>:get
+  match "performances/new/:id" => "performances#new", :as=>:new_performance_lesson, :via=>:get
+
+
+
+  
   resources :types
 
 

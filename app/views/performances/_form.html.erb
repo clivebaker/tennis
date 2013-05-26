@@ -1,0 +1,47 @@
+
+<%= form_for @performance, :html => { :class => 'form-horizontal' } do |f| %>
+<% if @performance.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@performance.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+
+    <ul>
+    <% @performance.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%   disc = @performance.discipline.id unless @performance.discipline.blank? %>
+
+<%= f.hidden_field :lesson_id %>
+
+
+  <div class="control-group">
+    <%= f.label :discipline_id, :class => 'control-label' %>
+    <div class="controls">
+		<%=f.select :discipline_id, options_for_select(@disciplines.collect{|c| [c.name, c.id]}, disc), :prompt=>"Choose Discipline" %>	
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :points, :class => 'control-label' %>
+    <div class="controls">
+		<%=f.select :points, options_for_select(0..10, @performance.points), :prompt=>"Choose Points" %>	
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :notes, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :notes, :class => 'text_area',  :rows=>"3" %>
+    </div>
+  </div>
+
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-success' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                performances_path, :class => 'btn' %>
+  </div>
+<% end %>
