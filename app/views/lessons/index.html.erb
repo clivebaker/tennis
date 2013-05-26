@@ -1,0 +1,65 @@
+<%- model_class = Lesson -%>
+
+<div class="row-fluid">
+  <div class="span12 content">
+
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:day) %></th>
+      <th><%= model_class.human_attribute_name(:time) %></th>
+      <th><%= model_class.human_attribute_name(:coach_id) %></th>
+      <th><%= model_class.human_attribute_name(:location_id) %></th>
+      <th class="hidden-phone hidden-tablet"><%= model_class.human_attribute_name(:diciplines) %></th>
+      <th class="hidden-phone hidden-tablet"><%= model_class.human_attribute_name(:points) %></th>
+      <th class="hidden-phone hidden-tablet"><%= model_class.human_attribute_name(:notes) %></th>
+      <th class="hidden-phone hidden-tablet"><%= model_class.human_attribute_name(:type) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @lessons.each do |lesson| %>
+      <tr>
+        <td><%= lesson.date.strftime("%d %b %Y ") %></td>
+        <td><%= lesson.date.strftime("%H:%M") %></td>
+        <td><%= lesson.coach.name %></td>
+        <td><%= lesson.location.name %></td>
+        <td class="hidden-phone hidden-tablet">
+				<%if !lesson.performances.blank?%>
+			<table class="table table-striped table-bordered discipline-table">
+			  <tbody>
+			    <% lesson.performances.each do |performance| %>
+			      <tr>
+			        <td><%= performance.discipline.name%></td>
+			        <td><% (1..performance.points).each do |num|%><%=image_tag 'ball-small.png'%><%end%></td>
+			        <td><%= performance.notes%></td>
+			      </tr>
+			    <% end %>
+			  </tbody>
+			</table>
+			<%end%>
+
+		</td>
+        <td class="hidden-phone hidden-tablet"><%= lesson.points==0 ? "None" : lesson.points %></td>
+        <td class="hidden-phone hidden-tablet"><%= lesson.notes %></td>
+        <td class="hidden-phone hidden-tablet"><%= lesson.type.name %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_lesson_path(lesson), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      lesson_path(lesson),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_lesson_path,
+            :class => 'btn btn-primary' %>
+
+				</div>
+		</div>

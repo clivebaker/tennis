@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  player_id: 1
+  date: 2013-05-25 22:44:23
+  result: MyString
+  notes: MyString
+
+two:
+  name: MyString
+  player_id: 1
+  date: 2013-05-25 22:44:23
+  result: MyString
+  notes: MyString

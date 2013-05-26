@@ -1,0 +1,106 @@
+
+<%content_for :js do%>
+
+<script type="text/javascript">
+  $(function() {
+    $('#datetimepicker1').datetimepicker({
+      	language: 'en',
+		pickSeconds: false         // disables seconds in the time picker
+    });
+
+	<% if !@lesson.date.blank? %>
+
+	var picker = $('#datetimepicker1').data('datetimepicker');
+    picker.setDate(new Date(Date.UTC(<%="#{@lesson.date.year},#{@lesson.date.month},#{@lesson.date.day},#{@lesson.date.hour},#{@lesson.date.min}"%>)));
+	
+	<% end %>
+
+  });
+</script>
+
+<%end%>
+
+<%= form_for @lesson, :html => { :class => 'form-horizontal' } do |f| %>
+<% if @lesson.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+
+    <ul>
+    <% @lesson.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+
+  <!-- <div class="control-group">
+    <%#= f.label :date, :class => 'control-label' %>
+    <div class="controls">
+      <%#= f.datetime_select :date, :class => 'datetime_select' %>
+    </div>
+  </div> -->
+
+
+  <div class="control-group">
+   <%= f.label :date, :class => 'control-label' %>
+ 	<div class="controls">
+  <div id="datetimepicker1" class="input-append date">
+	<%= f.text_field :date, "data-format"=>"dd/MM/yyyy hh:mm", :class=>'date-time-input text_field' %>
+    <span class="add-on">
+      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+      </i>
+    </span>
+  </div>
+  </div>
+</div>
+
+  <div class="control-group">
+   <%= f.label :player_id, :class => 'control-label' %>
+
+     <div class="controls">
+		<%=f.select :player_id, options_for_select(@players.collect{|c| ["#{c.first_name} #{c.last_name}", c.id]}, @lesson.player_id), :prompt=>"Choose Player" %>	
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :coach_id, :class => 'control-label' %>
+    <div class="controls">
+
+	<%=f.select :coach_id, options_for_select(@coaches.collect{|c| [c.name, c.id]}, @lesson.coach_id), :prompt=>"Choose Coach" %>	
+     </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :location_id, :class => 'control-label' %>
+    <div class="controls">
+		<%=f.select :location_id, options_for_select(@locations.collect{|c| [c.name, c.id]}, @lesson.location_id), :prompt=>"Choose Location" %>	
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :type_id, :class => 'control-label' %>
+    <div class="controls">
+		<%=f.select :type_id, options_for_select(@types.collect{|c| [c.name, c.id]}, @lesson.type_id), :prompt=>"Choose Lesson Type" %>	
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :points, :class => 'control-label' %>
+    <div class="controls">
+		<%=f.select :points, options_for_select(0..10, @lesson.points), :prompt=>"Choose Points" %>	
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :notes, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :notes, :class => 'text_area',  :rows=>"3" %>
+    </div>
+  </div>
+
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                lessons_path, :class => 'btn' %>
+  </div>
+<% end %>

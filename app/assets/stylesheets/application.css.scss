@@ -1,0 +1,45 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+@import url(http://fonts.googleapis.com/css?family=Jura:400,300,600);
+body{
+	background-image: url(image_path('wood_1.png'));
+	
+	}
+
+ul{list-style:none;}
+
+.top20{margin-top:20px !important;}
+
+.container-fluid{font-family: 'Jura', sans-serif;color:black;}
+.content{
+	background-color: white;padding:25px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	border:4px solid #b4ca06;}
+
+footer{
+	margin:20px 0 0 0;color:white;
+}
+
+.padding10{
+	padding:10px;
+}
+
+.bottom10{
+	margin-bottom:10px;
+}
+ .discipline-table{padding:0;margin:0!important;}
+.date-time-input{width:180px!important;}
